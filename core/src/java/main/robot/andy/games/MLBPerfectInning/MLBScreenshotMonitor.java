@@ -2,9 +2,9 @@ package robot.andy.games.MLBPerfectInning;
 
 import java.util.Timer;
 
-public class ScreenshotMonitor {
+public class MLBScreenshotMonitor {
 
-	public ScreenshotMonitor(){
+	public MLBScreenshotMonitor(){
 		run();
 	}
 	
@@ -12,7 +12,7 @@ public class ScreenshotMonitor {
 	private void run(){
 		
 		Timer timer = new Timer();
-		timer.schedule(new ScreenshotAnalyze(), 1000, 4000);
+		timer.schedule(new MLBScreenshotAnalyze(), 1000, 4000);
 		
 		
 		
@@ -22,7 +22,7 @@ public class ScreenshotMonitor {
 	public static void main(String[] args) {
 		
 		
-		ScreenshotMonitor sm = new ScreenshotMonitor();
+		MLBScreenshotMonitor sm = new MLBScreenshotMonitor();
 		
 	}
 }

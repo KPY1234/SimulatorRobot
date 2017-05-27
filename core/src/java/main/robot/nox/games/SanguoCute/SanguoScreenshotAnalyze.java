@@ -1,4 +1,4 @@
-package robot.bluestack.games.SanguoCute;
+package robot.nox.games.SanguoCute;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 
 import modules.utilities.RobotHandler;
 
-public class ScreenshotAnalyze extends TimerTask {
+public class SanguoScreenshotAnalyze extends TimerTask {
 	
 	final int SANGUO_AVAILABLE_FOOD_STATE = 1;
 	final int SANGUO_CITY_INSIDE_STATE = 2;
@@ -46,7 +46,7 @@ public class ScreenshotAnalyze extends TimerTask {
 	
 	int idleTime = 300000; //ms
 	
-	public ScreenshotAnalyze(){
+	public SanguoScreenshotAnalyze(){
 		init();
 	}
 	
@@ -105,7 +105,7 @@ public class ScreenshotAnalyze extends TimerTask {
 //		int diff_mlb_13 = getMLB_13();
 //		int diff_mlb_14 = getMLB_14();
 		
-		System.out.println("diff\t"+diff_collect_food);
+		System.out.println("diff\t"+diff_continue_fight_confirm);
 		
 		if(diff_collect_food < 500){
 			STATE = SANGUO_AVAILABLE_FOOD_STATE;
@@ -139,61 +139,10 @@ public class ScreenshotAnalyze extends TimerTask {
 			STATE = SANGUO_END_FIGHT_STATE;
 			System.out.println(diff_end_fight);
 		}
-//		else if(diff_mlb_7 < 70000){
-//			STATE = MLB_AWARD_STATE;
-//			System.out.println(diff_mlb_7);
-//		}else if(diff_mlb_8 < 35000){
-//			STATE = MLB_BREAK_DAY_STATE;
-//			System.out.println(diff_mlb_8);
-//		}else if(diff_mlb_10 < 80000){
-//			STATE = MLB_NETWORK_UNSTABLE_STATE;
-//			System.out.println(diff_mlb_8);
-//		}else if(diff_mlb_11 < 300000){
-//			STATE = MLB_WORLD_SERIES_STATE;
-//			System.out.println(diff_mlb_11);
-//		}else if(diff_mlb_12 < 30000){
-//			STATE = MLB_GOLD_GLOVE_STATE;
-//			System.out.println(diff_mlb_12);
-//		}else if(diff_mlb_13 < 50000){
-//			STATE = MLB_GOLD_GLOVE_AWARD_STATE;
-//			System.out.println(diff_mlb_13);
-//		}else if(diff_mlb_14 < 50000){
-//			STATE = MLB_GOLD_GLOVE_AGAIN_STATE;
-//			System.out.println(diff_mlb_14);
-//		}else{
-//			long nowTime = new Date().getTime();
-//			System.out.println(nowTime);
-//			
-//			if(STATE!=-1)
-//				noneStateStartTime = nowTime;
-//			
-//			long timeDiff = nowTime - noneStateStartTime;
-//			System.out.println("time diff: "+timeDiff);
-//			if(timeDiff > idleTime && diff_mlb_9 < 10000){
-//				System.out.println("halt");
-//				resetSimulator();
-//				STATE = MLB_RESET_STATE;
-//			}
-//			else
-//				STATE = -1;
-//		}
-//		System.out.println("diff0= "+diff_mlb_0);
-//		System.out.println("diff1= "+diff_mlb_1);
-//		System.out.println("diff2= "+diff_mlb_2);
-//		System.out.println("diff3= "+diff_mlb_3);
-//		System.out.println("diff4= "+diff_mlb_4);
-//		System.out.println("diff5= "+diff_mlb_5);
-//		System.out.println("diff6= "+diff_mlb_6);
-//		System.out.println("diff7= "+diff_mlb_7);
-//		System.out.println("diff8= "+diff_mlb_8);
-//		System.out.println("diff9= "+diff_mlb_9);
-//		System.out.println("diff10= "+diff_mlb_10);
-//		System.out.println("diff11= "+diff_mlb_11);
-//		System.out.println("diff12= "+diff_mlb_12);
-//		System.out.println("diff13= "+diff_mlb_13);
-//		System.out.println("diff14= "+diff_mlb_14);
-		
-	
+		else{
+			STATE = -1;
+		}
+
 		if(STATE == SANGUO_AVAILABLE_FOOD_STATE){
 			System.out.println("SANGUO_AVAILABLE_FOOD_STATE");
 			collectFood();
@@ -231,31 +180,7 @@ public class ScreenshotAnalyze extends TimerTask {
 			System.out.println("SANGUO_END_FIGHT_STATE");
 			confirmEndFightAndEscapeToCityInside();
 		}
-//		else if(STATE == MLB_AWARD_STATE){
-//			System.out.println("MLB_AWARD_STATE");
-//			chooseOneAward();
-//		}else if(STATE == MLB_BREAK_DAY_STATE){
-//			System.out.println("MLB_BREAK_DAY_STATE");
-//			breakDayConfirm();
-//		}else if(STATE == MLB_NETWORK_UNSTABLE_STATE){
-//			System.out.println("MLB_NETWORK_UNSTABLE_STATE");
-//			networkUnstableConfirm();
-//		}else if(STATE == MLB_WORLD_SERIES_STATE){
-//			System.out.println("MLB_WORLD_SERIES_STATE");
-//			GoWorldSeries();
-//		}else if(STATE == MLB_GOLD_GLOVE_STATE){
-//			System.out.println("MLB_GOLD_GLOVE_STATE");
-//			PlayWheel();
-//		}else if(STATE == MLB_GOLD_GLOVE_AWARD_STATE){
-//			System.out.println("MLB_GOLD_GLOVE_AWARD_STATE");
-//			WheelAwardConfirm();
-//		}else if(STATE == MLB_GOLD_GLOVE_AGAIN_STATE){
-//			System.out.println("MLB_GOLD_GLOVE_AGAIN_STATE");
-//			WheelAwardConfirm();
-//		}else{
-//			System.out.println("NONE");
-//			
-//		}
+
 		
 		
 //		System.out.println(STATE);
@@ -578,14 +503,6 @@ public class ScreenshotAnalyze extends TimerTask {
 			e.printStackTrace();
 		}
 		
-		RobotHandler.pressAndRelease();
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		moveToFightLevelPoint();
 		RobotHandler.pressAndRelease();
@@ -777,7 +694,7 @@ public class ScreenshotAnalyze extends TimerTask {
 	
 	public static void main(String[] args) {
 		
-		ScreenshotAnalyze sa = new ScreenshotAnalyze();
+		SanguoScreenshotAnalyze sa = new SanguoScreenshotAnalyze();
 		sa.run();
 	}
 	

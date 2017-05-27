@@ -1,4 +1,4 @@
-package robot.andy.games.MLBPerfectInning;
+package robot.nox.games.SanguoCute;
 
 import java.awt.Robot;
 import java.io.BufferedReader;
@@ -9,11 +9,11 @@ import java.util.Properties;
 import modules.utilities.RobotHandler;
 import robot.andy.AndySimulator;
 
-public class SimulatorLauncher extends AndySimulator{
+public class SanguoSimulatorLauncher{
 
 	Properties prop;
 	
-	public SimulatorLauncher(){
+	public SanguoSimulatorLauncher(){
 		
 		init();
 		try {
@@ -53,16 +53,14 @@ public class SimulatorLauncher extends AndySimulator{
 	
 	private void run() throws InterruptedException{
 		
-		maximizeWindow();
+		SanguoScreenshotMonitor sm = new SanguoScreenshotMonitor();
 		
 	}
 	
-	
 	public static void main(String[] args) {
 		
-		SimulatorLauncher mlbpi = new SimulatorLauncher();
-		ScreenshotMonitor sm = new ScreenshotMonitor();
-		
+		SanguoSimulatorLauncher mlbpi = new SanguoSimulatorLauncher();
+
 	}
 
 }

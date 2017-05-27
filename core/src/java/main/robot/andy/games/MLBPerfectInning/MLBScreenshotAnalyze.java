@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
 
 import modules.utilities.RobotHandler;
 
-public class ScreenshotAnalyze extends TimerTask {
+public class MLBScreenshotAnalyze extends TimerTask {
 	
 	final int ANDY_DESKTOP_STATE = 0;
 	final int MLB_DOWNLOAD_STATE = 1;
@@ -45,7 +45,7 @@ public class ScreenshotAnalyze extends TimerTask {
 	
 	int idleTime = 300000; //ms
 	
-	public ScreenshotAnalyze(){
+	public MLBScreenshotAnalyze(){
 		init();
 	}
 	
@@ -1188,7 +1188,7 @@ public class ScreenshotAnalyze extends TimerTask {
 	
 	public static void main(String[] args) {
 		
-		ScreenshotAnalyze sa = new ScreenshotAnalyze();
+		MLBScreenshotAnalyze sa = new MLBScreenshotAnalyze();
 		sa.run();
 	}
 	
