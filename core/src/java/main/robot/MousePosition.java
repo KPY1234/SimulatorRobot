@@ -45,6 +45,7 @@ public class MousePosition extends JFrame implements NativeMouseInputListener, N
 	int ypos;
 	
 	boolean LeftControlPressing = false;
+	boolean LeftShiftPressing = false;
 	
 	String settingsFilePath = "./settings/position.setting";
 	
@@ -161,7 +162,8 @@ public class MousePosition extends JFrame implements NativeMouseInputListener, N
 		int clickedXPos = xpos;
 		int clickedYPos = ypos;
 		
-		if(LeftControlPressing){
+//		if(LeftControlPressing){
+		if(LeftShiftPressing){
 			String input=JOptionPane.showInputDialog(null,"請輸入:","輸入對話框",JOptionPane.QUESTION_MESSAGE);
 			if(input == null || input.isEmpty())
 				System.err.println("NULL");
@@ -219,8 +221,13 @@ public class MousePosition extends JFrame implements NativeMouseInputListener, N
 		
 		String eventKey = NativeKeyEvent.getKeyText(e.getKeyCode()).trim();
 		
+//		System.out.println(eventKey);
+		
 		if(eventKey.equals("Left Control"))
 			LeftControlPressing = true;
+		
+		if(eventKey.equals("Left Shift"))
+			LeftShiftPressing = true;
 		
 //		System.out.println("Left Control Pressed: " +LeftControlPressing);
 		
@@ -235,7 +242,8 @@ public class MousePosition extends JFrame implements NativeMouseInputListener, N
 		if(eventKey.equals("Left Control"))
 			LeftControlPressing = false;
 		
-		
+		if(eventKey.equals("Left Shift"))
+			LeftShiftPressing = false;
 	}
 
 	@Override
