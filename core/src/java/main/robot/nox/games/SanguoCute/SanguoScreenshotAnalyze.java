@@ -524,7 +524,7 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		
 		RobotHandler.pressAndRelease();
 		
-		Thread.sleep(5000);
+		Thread.sleep(8000);
 		
 		RobotHandler.pressAndRelease();
 		
