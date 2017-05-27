@@ -69,5 +69,7 @@ Sanguo_ContinueFightConfirmButtonPosX = 794
 Sanguo_ContinueFightConfirmButtonPosY = 562
 Sanguo_ConfirmEndFightPosX = 693
 Sanguo_ConfirmEndFightPosY = 662
+Sanguo_EscapeButtonPosX = 105
+Sanguo_EscapeButtonPosY = 95
 Sanguo_FoodIconPosX = 813
 Sanguo_FoodIconPosY = 676

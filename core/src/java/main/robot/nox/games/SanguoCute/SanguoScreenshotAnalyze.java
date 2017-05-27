@@ -97,13 +97,6 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		int diff_continue_fight_confirm = get_diff_continue_fight_confirm();
 		int diff_end_fight = get_diff_end_fight();
 		int diff_collect_food = get_diff_collect_food();
-//		int diff_mlb_8 = getMLB_8();
-//		int diff_mlb_9 = getMLB_9();
-//		int diff_mlb_10 = getMLB_10();
-//		int diff_mlb_11 = getMLB_11();
-//		int diff_mlb_12 = getMLB_12();
-//		int diff_mlb_13 = getMLB_13();
-//		int diff_mlb_14 = getMLB_14();
 		
 //		System.out.println("diff\t"+diff_continue_fight_confirm);
 		
@@ -182,36 +175,8 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 			confirmEndFightAndEscapeToCityInside();
 		}
 
-		
-		
-//		System.out.println(STATE);
-//		System.out.println(diff_mlb_1);
 	}
 	
-	
-//	private int getMLB_0(){
-//		
-//		String pic = "./screenshot/mlb_00.jpg";
-//		
-//		int x1 = 927;
-//		int y1 = 185;
-//		int x2 = 1303;
-//		int y2 = 685;
-//		
-//		int diff = 0;
-//	
-//		try {
-//			diff = getPicDiff(pic, x1, y1, x2, y2);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (AWTException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return diff;
-//		
-//	}
 	
 	private int get_diff_city_inside(){
 		
@@ -542,15 +507,31 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		moveToEndFightConfirmButton();
 		RobotHandler.pressAndRelease();
 		
-		for(int i=0;i<3;i++)
+		try {
 			Escape();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
-	private void Escape(){
+	private void Escape() throws InterruptedException{
 		
-		Robot r = RobotHandler.getRobot();
-		r.keyPress(KeyEvent.VK_ESCAPE);
+		moveToEscapeButton();
+		
+		Thread.sleep(3000);
+		
+		RobotHandler.pressAndRelease();
+		
+		Thread.sleep(5000);
+		
+		RobotHandler.pressAndRelease();
+		
+		Thread.sleep(5000);
+		
+		RobotHandler.pressAndRelease();
+		
 	}
 	
 	private void moveToFoodIcon(){
@@ -667,6 +648,7 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		
 	}
 	
+	
 	private void moveToEndFightConfirmButton(){
 		
 		Robot r = RobotHandler.getRobot();
@@ -681,6 +663,19 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		
 	}
 	
+	private void moveToEscapeButton(){
+		
+		Robot r = RobotHandler.getRobot();
+		
+		String posXStr =  prop.getProperty("Sanguo_EscapeButtonPosX");
+		String posYStr =  prop.getProperty("Sanguo_EscapeButtonPosY");
+		
+		int x = Integer.parseInt(posXStr);
+		int y = Integer.parseInt(posYStr);
+		
+		r.mouseMove(x, y);
+		
+	}
 	
 	public void maximizeWindowSize(){
 		
