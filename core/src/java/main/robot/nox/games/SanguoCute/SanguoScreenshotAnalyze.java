@@ -30,13 +30,8 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 	final int SANGUO_FIGHT_CHOOSER_STATE = 6;
 	final int SANGUO_CONTINUE_FIGHT_CONFIRM_STATE = 7;
 	final int SANGUO_END_FIGHT_STATE = 8;
-//	final int MLB_BREAK_DAY_STATE = 8;
-//	final int MLB_NETWORK_UNSTABLE_STATE = 10;
-//	final int MLB_WORLD_SERIES_STATE = 11;
-//	final int MLB_GOLD_GLOVE_STATE = 12;
-//	final int MLB_GOLD_GLOVE_AWARD_STATE = 13;
-//	final int MLB_GOLD_GLOVE_AGAIN_STATE = 14;
-//	final int MLB_RESET_STATE = 99;
+	final int SANGUO_NO_FOOD_CONTINUE_FIGHT_STATE = 9;
+	final int SANGUO_FIGHT_AGAIN_STATE = 10;
 	
 	int STATE = -1;
 	
@@ -94,11 +89,13 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		int diff_fight_start = get_diff_fight_start();
 		int diff_fight_prepare = get_diff_fight_prepare();
 		int diff_continue_fight = get_diff_continue_fight();
+		int diff_no_food_continue_fight = get_diff_no_food_continue_fight();
 		int diff_continue_fight_confirm = get_diff_continue_fight_confirm();
 		int diff_end_fight = get_diff_end_fight();
 		int diff_collect_food = get_diff_collect_food();
+		int diff_fight_again = get_diff_fight_again();
 		
-//		System.out.println("diff\t"+diff_continue_fight_confirm);
+//		System.out.println("diff\t"+diff_fight_again);
 		
 		if(diff_collect_food < 500){
 			STATE = SANGUO_AVAILABLE_FOOD_STATE;
@@ -124,6 +121,10 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 			STATE = SANGUO_FIGHT_CHOOSER_STATE;
 			System.out.println(diff_continue_fight);
 		}
+		else if(diff_no_food_continue_fight < 290000){
+			STATE = SANGUO_NO_FOOD_CONTINUE_FIGHT_STATE;
+			System.out.println(diff_no_food_continue_fight);
+		}
 		else if(diff_continue_fight_confirm < 130000){
 			STATE = SANGUO_CONTINUE_FIGHT_CONFIRM_STATE;
 			System.out.println(diff_continue_fight_confirm);
@@ -132,10 +133,15 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 			STATE = SANGUO_END_FIGHT_STATE;
 			System.out.println(diff_end_fight);
 		}
+		else if(diff_fight_again < 170000){
+			STATE = SANGUO_FIGHT_AGAIN_STATE;
+			System.out.println(diff_fight_again);
+		}
 		else{
 			STATE = -1;
 			System.out.println("no match state!!");
 		}
+		
 
 		if(STATE == SANGUO_AVAILABLE_FOOD_STATE){
 			System.out.println("SANGUO_AVAILABLE_FOOD_STATE");
@@ -174,7 +180,16 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 			System.out.println("SANGUO_END_FIGHT_STATE");
 			confirmEndFightAndEscapeToCityInside();
 		}
-
+		else if(STATE == SANGUO_NO_FOOD_CONTINUE_FIGHT_STATE){
+			System.out.println("SANGUO_NO_FOOD_CONTINUE_FIGHT_STATE");
+			escapeToCityInside();
+		}
+		else if(STATE == SANGUO_FIGHT_AGAIN_STATE){
+			System.out.println("SANGUO_FIGHT_AGAIN_STATE");
+			clickToResumeFight();
+		}
+		
+		
 	}
 	
 	
@@ -298,6 +313,31 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		
 	}
 	
+	private int get_diff_no_food_continue_fight(){
+		
+		String pic = "./screenshot/sanguoCute/sanguo_noFoodToContinueFight.jpg";
+		
+		int x1 = 1213;
+		int y1 = 528;
+		int x2 = 1328;
+		int y2 = 551;
+		
+		int diff = 0;
+	
+		try {
+			diff = getPicDiff(pic, x1, y1, x2, y2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return diff;
+		
+	}
+	
+	
 	private int get_diff_continue_fight_confirm(){
 		
 		String pic = "./screenshot/sanguoCute/sanguo_continueFightConfirm.jpg";
@@ -370,6 +410,30 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		
 	}
 	
+
+	private int get_diff_fight_again(){
+		
+		String pic = "./screenshot/sanguoCute/sanguo_fightAgain.jpg";
+		
+		int x1 = 73;
+		int y1 = 256;
+		int x2 = 310;
+		int y2 = 316;
+		
+		int diff = 0;
+	
+		try {
+			diff = getPicDiff(pic, x1, y1, x2, y2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return diff;
+		
+	}
 	
 	private int getPicDiff(String pic, int x1, int y1, int x2, int y2) throws IOException, AWTException{
 
@@ -515,6 +579,25 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		}
 
 	}
+	
+	private void escapeToCityInside(){
+		
+		try {
+			Escape();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void clickToResumeFight(){
+		
+		moveToResumePoint();
+		RobotHandler.pressAndRelease();
+
+	}
+	
 	
 	private void Escape() throws InterruptedException{
 		
@@ -676,6 +759,22 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		r.mouseMove(x, y);
 		
 	}
+	
+	private void moveToResumePoint(){
+		
+		Robot r = RobotHandler.getRobot();
+		
+		String posXStr =  prop.getProperty("Sanguo_ResumeFightPosX");
+		String posYStr =  prop.getProperty("Sanguo_ResumeFightPosY");
+		
+		int x = Integer.parseInt(posXStr);
+		int y = Integer.parseInt(posYStr);
+		
+		r.mouseMove(x, y);
+		
+	}
+	
+	
 	
 	public void maximizeWindowSize(){
 		
