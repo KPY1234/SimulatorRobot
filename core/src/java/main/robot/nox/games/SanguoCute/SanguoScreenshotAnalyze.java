@@ -105,7 +105,7 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 //		int diff_mlb_13 = getMLB_13();
 //		int diff_mlb_14 = getMLB_14();
 		
-		System.out.println("diff\t"+diff_continue_fight_confirm);
+//		System.out.println("diff\t"+diff_continue_fight_confirm);
 		
 		if(diff_collect_food < 500){
 			STATE = SANGUO_AVAILABLE_FOOD_STATE;
@@ -141,6 +141,7 @@ public class SanguoScreenshotAnalyze extends TimerTask {
 		}
 		else{
 			STATE = -1;
+			System.out.println("no match state!!");
 		}
 
 		if(STATE == SANGUO_AVAILABLE_FOOD_STATE){
